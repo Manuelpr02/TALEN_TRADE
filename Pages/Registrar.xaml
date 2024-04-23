@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Pages.Registrar"
+             Title="Registrar">
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="Registro" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,20,0,0" FontSize="24" Grid.Row="0" />
+        <Button ImageSource="arrow.png" x:Name="btn_volver" Clicked="Clicked_btnvolver" Grid.Row="0" BackgroundColor="Transparent"  Margin="0,5" VerticalOptions="Start" HorizontalOptions="Start"/>
+        <Image Source="logo.png" Grid.Row="1" HeightRequest="200" Margin="0,20" VerticalOptions="Start"/>
+        <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+            <Entry Placeholder="Nombre" x:Name="Nombreentry"  Margin="0,10,0,0" WidthRequest="300" />
+            <Entry Placeholder="Correo electrónico" x:Name="CorreoEntry" Margin="0,10,0,0" WidthRequest="300" />
+            <Entry Placeholder="Contraseña" x:Name="PasswordEntry" Margin="0,10,0,0" WidthRequest="300" IsPassword="True" />
+            <Entry Placeholder="Confirmar Contraseña" x:Name="NewPasswordEntry" Margin="0,10,0,0" WidthRequest="300" IsPassword="True"/>
+
+            <Button Text="Registrar" x:Name="btn_registrar" Clicked="Clicked_btnregistrar" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Margin="0,20,0,0" />
+        </StackLayout>
+    </Grid>
+</ContentPage>
