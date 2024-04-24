@@ -88,6 +88,9 @@
 	  <MauiXaml Update="Pages\Menuprincipal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Recordarpasw.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Registrar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

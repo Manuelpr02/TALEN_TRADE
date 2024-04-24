@@ -38,10 +38,44 @@ public partial class Registrar : ContentPage
             await DisplayAlert("Error", "El nombre o correo electrónico ya están registrados", "OK");
             return;
         }
+        string nombreUltimoDocumento = string.Empty;
+
+        // Realizar una consulta para obtener el último documento creado en la colección "Usuario"
+        int mayorValor = 0;
+
+        // Obtener todos los documentos de la colección "Usuario"
+        var usuariosSnapshot4 = await CrossCloudFirestore.Current
+                                           .Instance
+                                           .Collection("Usuario")
+                                           .GetAsync();
+
+        // Lista para almacenar los IDs de los documentos
+        List<int> idsDocumentos = new List<int>();
+
+        // Recorrer los documentos y guardar sus IDs en el vector
+        foreach (var documento in usuariosSnapshot4.Documents)
+        {
+            idsDocumentos.Add(int.Parse(documento.Id));
+        }
+
+        // Ordenar el vector en orden descendente (de mayor a menor)
+        idsDocumentos.Sort((a, b) => b.CompareTo(a));
+
+        // Si hay elementos en el vector, asignar el primer elemento (mayor valor) a la variable mayorValor
+        if (idsDocumentos.Any())
+        {
+            mayorValor = idsDocumentos[0];
+        }
+
+        // Mostrar el mayor valor del vector
+        Console.WriteLine("El mayor valor del vector es: " + mayorValor);
+
+
 
         // Registrar el usuario si pasa las validaciones
-        int idusuario = await LocalDB.AddCliente(Nombreentry.Text, CorreoEntry.Text, PasswordEntry.Text);
-        var usuarioTask = LocalDB.GetUsuario(idusuario);
+        
+        int idUsuario = await LocalDB.AddCliente(Nombreentry.Text, CorreoEntry.Text, PasswordEntry.Text);
+        var usuarioTask = LocalDB.GetUsuario(idUsuario);
         Usuario user = new Usuario();
 
         // Esperar la finalización de la tarea y obtener el usuario
@@ -53,7 +87,7 @@ public partial class Registrar : ContentPage
             if (usuario != null)
             {
                 // Asignar los valores del usuario a un nuevo objeto Usuario
-                user.idusario = idusuario;
+                user.idusario = mayorValor + 1;
                 user.nombre = usuario.nombre;
                 user.correo = usuario.correo;
                 user.password = usuario.password;
@@ -66,7 +100,7 @@ public partial class Registrar : ContentPage
             await CrossCloudFirestore.Current
                              .Instance
                              .Collection("Usuario")
-                             .Document(idusuario.ToString())
+                             .Document((mayorValor + 1).ToString())
                              .SetAsync(user);
 
         }
@@ -74,6 +108,7 @@ public partial class Registrar : ContentPage
         {
             await DisplayAlert("Error", "Las contraseñas no coinciden", "OK");
         }
+        
     }
 
     // Método para verificar el formato del correo electrónico
