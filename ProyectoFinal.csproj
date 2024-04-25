@@ -59,6 +59,8 @@
 	<ItemGroup>
 	  <None Remove="Platforms\Android\google-services.json" />
 	  <None Remove="Resources\Images\arrow.png" />
+	  <None Remove="Resources\Images\check.png" />
+	  <None Remove="Resources\Images\close.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	</ItemGroup>
 

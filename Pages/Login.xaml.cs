@@ -31,9 +31,14 @@ public partial class Login : ContentPage
                 // Verificar si la contraseña coincide con el campo "password" en la base de datos
                 if (datosDocumento.TryGetValue("password", out var contrasenaBD) && contrasenaBD.ToString() == contrasena)
                 {
+                    datosDocumento.TryGetValue("correo", out var correoBD);
+                    datosDocumento.TryGetValue("idusario", out var idBD);
+                    string Correo = correoBD.ToString();
+                    int idDocumentoInt = Convert.ToInt32(idBD);
                     // Si las credenciales son correctas, hacer algo aquí
                     await DisplayAlert("Éxito", "¡Inicio de sesión exitoso!", "OK");
-                    await Navigation.PushModalAsync(new Menuprincipal());
+                    Console.WriteLine(contrasena, Correo);
+                    await Navigation.PushModalAsync(new Menuprincipal(usuario,Correo,contrasena,idDocumentoInt));
                     return;
                 }
             }
