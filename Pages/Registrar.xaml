@@ -13,12 +13,15 @@
         <Label Text="Registro" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,20,0,0" FontSize="24" Grid.Row="0" />
         <Button ImageSource="arrow.png" x:Name="btn_volver" Clicked="Clicked_btnvolver" Grid.Row="0" BackgroundColor="Transparent"  Margin="0,5" VerticalOptions="Start" HorizontalOptions="Start"/>
         <Image Source="logo.png" Grid.Row="1" HeightRequest="200" Margin="0,20" VerticalOptions="Start"/>
-        <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+        <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Margin="20,200,0,0">
             <Entry Placeholder="Nombre" x:Name="Nombreentry"  Margin="0,10,0,0" WidthRequest="300" />
             <Entry Placeholder="Correo electrónico" x:Name="CorreoEntry" Margin="0,10,0,0" WidthRequest="300" />
             <Entry Placeholder="Contraseña" x:Name="PasswordEntry" Margin="0,10,0,0" WidthRequest="300" IsPassword="True" />
             <Entry Placeholder="Confirmar Contraseña" x:Name="NewPasswordEntry" Margin="0,10,0,0" WidthRequest="300" IsPassword="True"/>
-
+            <Label Text="Preguntas de Seguridad" Margin="0,30,0,0" WidthRequest="300" FontSize="Title" TextDecorations="Underline"/>
+            <Entry Placeholder="¿Dónde naciste?" x:Name="CiudadEntry" Margin="0,10,0,0" WidthRequest="300" />
+            <Entry Placeholder="¿Cuál es tu color favorito?" x:Name="Colorentry" Margin="0,10,0,0" WidthRequest="300" />
+            <Entry Placeholder="¿Cuántos años tienes?" x:Name="Edadentry" Margin="0,10,0,0" WidthRequest="300" />
             <Button Text="Registrar" x:Name="btn_registrar" Clicked="Clicked_btnregistrar" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Margin="0,20,0,0" />
         </StackLayout>
     </Grid>

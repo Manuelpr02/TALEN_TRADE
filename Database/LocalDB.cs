@@ -21,14 +21,17 @@ namespace ProyectoFinal.Database
             db = new SQLiteAsyncConnection(databasepath);
             await db.CreateTableAsync<Usuario>();
         }
-        public static async Task<int> AddCliente(string Nombre, string Email, string pasw)
+        public static async Task<int> AddCliente(string Nombre, string Email, string pasw, string Ciudad, string Edad, string Color)
         {
             await Init();
             var user = new Usuario
             {
                 nombre = Nombre,
                 correo = Email,
-                password = pasw
+                password = pasw,
+                ciudad = Ciudad,
+                edad = Edad,
+                color = Color
             };
             await db.InsertAsync(user);
             return user.idusario;

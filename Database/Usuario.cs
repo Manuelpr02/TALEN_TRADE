@@ -13,5 +13,8 @@ namespace ProyectoFinal.Database
         public string nombre { get; set; }
          public string correo { get; set; }
         public string password { get; set; }
+        public string ciudad {  get; set; }
+        public string color { get; set; }
+        public string edad { get; set; }
     }
 }

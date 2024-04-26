@@ -74,7 +74,7 @@ public partial class Registrar : ContentPage
 
         // Registrar el usuario si pasa las validaciones
         
-        int idUsuario = await LocalDB.AddCliente(Nombreentry.Text, CorreoEntry.Text, PasswordEntry.Text);
+        int idUsuario = await LocalDB.AddCliente(Nombreentry.Text, CorreoEntry.Text, PasswordEntry.Text, CiudadEntry.Text,Edadentry.Text,Colorentry.Text);
         var usuarioTask = LocalDB.GetUsuario(idUsuario);
         Usuario user = new Usuario();
 
@@ -91,6 +91,10 @@ public partial class Registrar : ContentPage
                 user.nombre = usuario.nombre;
                 user.correo = usuario.correo;
                 user.password = usuario.password;
+                user.ciudad = usuario.ciudad;
+                user.color = usuario.color;
+                user.edad = usuario.edad;
+                
                 // Asignar otros valores si los hay
             }
         });

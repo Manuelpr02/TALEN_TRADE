@@ -1,5 +1,4 @@
-using System.Net.Mail;
-using System.Net;
+using Plugin.CloudFirestore;
 
 namespace ProyectoFinal.Pages;
 
@@ -9,36 +8,52 @@ public partial class Recordarpasw : ContentPage
 	{
 		InitializeComponent();
 	}
-    private async void Clicked_btnEnviarCorreo(object sender, EventArgs e)
+
+    private async void Clicked_btnvolver(object sender, EventArgs e)
     {
-        string correo = CorreoEntry.Text;
-        string contrasena = "TuContraseñaDeCorreo"; // Reemplaza con tu contraseña de correo electrónico
+        await Navigation.PopModalAsync();
+    }
 
-        try
+    private async void Clicked_btnguardar(object sender, EventArgs e)
+    {
+        string edad = Edadentry.Text;
+        string color = Colorentry.Text;
+        string ciudad = Ciudadentry.Text;
+
+
+        // Obtener la colección "Usuario" y aplicar filtros según los valores de entrada
+        var usuariosSnapshot = await CrossCloudFirestore.Current
+                                                                .Instance
+                                                                .Collection("Usuario")
+                                                                .WhereEqualsTo("ciudad", Ciudadentry.Text)  // Filtrar por ciudad
+                                                                .WhereEqualsTo("color", Colorentry.Text)     // Filtrar por color
+                                                                .WhereEqualsTo("edad", Edadentry.Text)  // Filtrar por edad (conversión a entero)
+                                                                .GetAsync();
+
+        if (usuariosSnapshot.Documents.Any())
         {
-            MailMessage mensaje = new MailMessage();
-            SmtpClient clienteSMTP = new SmtpClient("smtp.gmail.com", 587);
+            var documento = usuariosSnapshot.Documents.FirstOrDefault();
 
-            // Configurar el cliente SMTP
-            clienteSMTP.EnableSsl = true;
-            clienteSMTP.UseDefaultCredentials = false;
-            clienteSMTP.Credentials = new NetworkCredential(correo, contrasena);
+            if (documento != null)
+            {
+                // Acceder a los datos del documento para obtener la contraseña
+                var datosDocumento = documento.Data;
 
-            // Configurar el mensaje
-            mensaje.From = new MailAddress(correo);
-            mensaje.To.Add(new MailAddress(correo));
-            mensaje.Subject = "Recuperación de contraseña";
-            mensaje.Body = "Aquí está tu contraseña: [2]"; // Reemplaza [TuContraseña] con la contraseña real
-
-            // Enviar el mensaje
-            clienteSMTP.Send(mensaje);
-
-            await DisplayAlert("Correo Enviado", $"Se ha enviado un correo con la contraseña a {correo}", "OK");
+                // Verificar si el campo "password" está presente en los datos del documento
+                if (datosDocumento.TryGetValue("password", out var contrasena))
+                {
+                    // Mostrar la contraseña almacenada en Firestore
+                    await DisplayAlert("Contraseña", $"Su contraseña es: {contrasena}", "OK");
+                }
+            }
         }
-        catch (Exception ex)
+        else
         {
-            await DisplayAlert("Error", $"No se pudo enviar el correo: {ex.Message}", "OK");
+            await DisplayAlert("Error","No se ha introducido los datos correctos", "OK");
         }
+
+
+
     }
 }
 

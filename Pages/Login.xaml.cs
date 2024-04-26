@@ -54,4 +54,9 @@ public partial class Login : ContentPage
     {
         Navigation.PushModalAsync(new Registrar());
     }
+
+    private async void Clicked_btnrecordar(object sender, EventArgs e)
+    {
+        await Navigation.PushModalAsync(new Recordarpasw());
+    }
 }
